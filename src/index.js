@@ -1,0 +1,36 @@
+const colorsArr = [
+  '#FFFFFF',
+  '#2196F3',
+  '#4CAF50',
+  '#FF9800',
+  '#009688',
+  '#795548',
+];
+const randomIntegerFromInterval = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+const refs = {
+  startBtn: document.querySelector("button[data-action='start']"),
+  stopBtn: document.querySelector("button[data-action='stop']"),
+  body: document.querySelector('body'),
+};
+
+refs.startBtn.addEventListener('click', onStartBtnClick);
+refs.stopBtn.addEventListener('click', onStoptBtnClick);
+
+let intervalId;
+
+function onStartBtnClick(e) {
+  intervalId = setInterval(() => {
+    refs.body.style.backgroundColor =
+      colorsArr[randomIntegerFromInterval(0, colorsArr.length - 1)];
+  }, 1000);
+  e.target.disabled = true;
+  e.target.textContent = 'Disabled';
+}
+function onStoptBtnClick() {
+  clearInterval(intervalId);
+  refs.startBtn.disabled = false;
+  refs.startBtn.textContent = 'Start';
+}
